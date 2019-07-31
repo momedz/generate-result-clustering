@@ -43,19 +43,20 @@ const good = (err, results) => {
         FM: 0
     }
     const result = results
-        // .reduce((a, b) => a.investigate.Purity > b.investigate.Purity ? a: b, { investigate });
-        .reduce((a, b) => a.investigate.RI > b.investigate.RI ? a: b, { investigate });
+        .reduce((a, b) => a.investigate.Purity > b.investigate.Purity ? a: b, { investigate });
+        // .reduce((a, b) => a.investigate.RI > b.investigate.RI ? a: b, { investigate });
         // .reduce((a, b) => a.investigate.ARI > b.investigate.ARI ? a: b, { investigate });
         // .reduce((a, b) => a.investigate.JI > b.investigate.JI ? a: b, { investigate });
         // .reduce((a, b) => a.investigate.NMI > b.investigate.NMI ? a: b, { investigate });
         // .reduce((a, b) => a.investigate.FM > b.investigate.FM ? a: b, { investigate });
+    // console.log(result);
     write_table(result)
 }
 
 db.on('error', console.error.bind(console, 'Connection Error:'));
 db.once('open', async () => {
     const collection = db.collection('result');
-    const algorithms = [ 'denstream', 'hscmstream' ];
+    const algorithms = [ 'denstream', 'heces', 'hscmstream' ];
     const datasets = [ 'HCM_5k', 'AHCM_20k_noise_2d' ];
     await Promise.all(algorithms.map(async algorithm => 
         await Promise.all(datasets.map(dataset =>
